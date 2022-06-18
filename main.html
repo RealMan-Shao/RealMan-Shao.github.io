@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>浙江大学通行码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/main.css"/>
+</head>
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery.qrcode.min.js"></script>
+
+
+<script>setTimeout("location=location; ", 3600 * 1000); </script>
+<script>
+
+    jQuery(function () {
+        update_time();
+        getHS();
+        getJkm();
+        jQuery('#output').qrcode({
+            render: "canvas",
+            width: 180,
+            height: 180,
+            text: 'jT6tmuodGqJ8BxagWnLHpZxliL72o9hFQUIhgyV7QgSIdTH2Hnnom4O1zGiiJrekehkmg73uL5k=',
+            foreground: "#1E90FF",
+            background: "#FFF",
+        });
+    })
+
+    function update_time() {
+        let now_time = new Date();
+        let year = now_time.getFullYear();
+        let month = now_time.getMonth() + 1;
+        let d = new Date(year, month, 0);
+        let days = d.getDate();
+        $("#valid").append('<div class="time">有效期：' + p(year) + '-' + p(month) + "-01 - " + p(year) + '-' + p(month) + "-" + p(days) + '</div>');
+    }
+
+    function getHS() {
+        let color = "#55B957";
+        let now_time = new Date();
+        let year = now_time.getFullYear();
+        let month = now_time.getMonth() + 1;
+        let day = now_time.getDate();
+        let hour = now_time.getHours();
+        let minute = Math.round(Math.random() * 60);
+        let now = p(year) + "年" + p(month) + "月" + p(day) + "日 " + p(hour - 5) + ":" + p(minute)
+
+        $("#lb_hs").append(" <button style=\"background: " + color + ";border: 0px;height: 80px;width: 120px;border-radius: 5px;margin: 5px;\"><span style=\"color: white;\">最近核酸采样</span><br>\n" +
+            "                    <span style=\"color: white;\">" + now + "</span><br>\n" +
+            "                    <span style=\"color: white;\">" + "阴性" + "</span></a></button>");
+    }
+
+    function getJkm() {
+        $("#lb_jkm").append(" <button style=\"background: " + "#55b957" + ";border: 0px;height: 80px;width: 120px;border-radius: 5px;margin: 5px;\">" +
+            "                    <span style=\"color: white;\">健康码</span><br>\n" +
+            "                    <span style=\"color: white;font-size:25px\">" + "绿码" + "</span></a></button>");
+    }
+
+    //获取系统时间
+    function showTime() {
+        nowtime = new Date();
+        year = nowtime.getFullYear();//年
+        month = nowtime.getMonth() + 1;//月
+        day = nowtime.getDate();//日
+        hour = nowtime.getHours();//时
+        minutes = nowtime.getMinutes(); //分
+        seconds = nowtime.getSeconds(); //秒
+        //文字增加空格
+        document.getElementById("div_timer");
+        //显示时间
+        document.getElementById("div_timer").innerText = p(month) + "月" + p(day) + "日 " + p(hour) + ":" + p(minutes) + ":" + p(seconds);
+    }
+
+    setInterval("showTime()", 1000);
+
+    function p(s) {
+        return s < 10 ? '0' + s : s;
+    }
+
+    function change_name() {
+        $('#name').html(window.prompt("你的名字") + '的通行码')
+    }
+
+    function change_type() {
+        $('#type').html(window.prompt(""))
+    }
+</script>
+
+
+<body class="blue-bg">
+<div class="banner"><img src="images/text.png"></div>
+<div class="content-box">
+    <div class="top-title">
+        <h3 id="name" onclick="change_name();return false;">胖胖的通行码</h3>
+        <span class="bgr-blue" id="type" onclick="change_type();return false;">本科生</span>
+    </div>
+    <strong>
+        <div class="time2" id="div_timer" style="font-family: 黑体"></div>
+    </strong>
+    <div class="qr">
+        <div id="output" style="margin-top: 10px;margin-bottom: 10px" onclick="location=location;"></div>
+    </div>
+    <div class="time" id="valid"></div>
+    <div id="ym">
+        <div id="ymContent" class="hz" style="color: #da9414">已接种2针新冠疫苗</div>
+    </div>
+
+    <div id="hs"
+         style="text-align: center;align-items: center;display: flex;justify-content:center;align-items:center;">
+        <lb id="lb_hs"></lb>
+        <lb id="lb_jkm"></lb>
+    </div>
+    <div style="text-align: center;">
+        <button style="background: rgb(91,145,201);border: 0px;height: 30px;width: 250px;border-radius: 5px;"><a
+                style="text-decoration: none" href="https://ur.alipay.com/43EwUEYDXm7MjnONin4OpB" target="_blank"><span
+                style="color: white;">行程卡:14天是否到过中高风险地区</span></a>
+        </button>
+    </div>
+    <div id="dateTime"></div>
+    <p class="tip" style="margin-top: 10px;">凭蓝码可在浙江大学校园内通行<br>请主动出示，配合检查</p>
+    <div style="text-align:center; margin-top: 10px">
+        <a target="_blank" href="/pass_code/zsq">申请流程</a>&nbsp;&nbsp;&nbsp;
+        <a target="_blank" href="/pass_code/zx/getList">申请记录</a>
+    </div>
+</div>
+<div class="bottom-tip">
+    <h3>安 保 处 ：0571-88206110</h3>
+    <a href="http://xwfw.zju.edu.cn/mobile/redir.php?catalog_id=371039" target="_blank" class="link-btn">常见问题</a>
+    <h3>技术支持：0571-87951669</h3>
+</div>
+</body>
+</html>
